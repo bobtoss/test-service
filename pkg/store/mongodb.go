@@ -2,6 +2,7 @@ package store
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	"go.mongodb.org/mongo-driver/mongo"
@@ -18,6 +19,7 @@ type Mongo struct {
 
 func NewMongo(uri string) (store Mongo, err error) {
 	ctx, cancel := context.WithTimeout(context.Background(), timeout)
+	fmt.Println(uri)
 	defer cancel()
 
 	store.Client, err = mongo.Connect(ctx, options.Client().ApplyURI(uri))

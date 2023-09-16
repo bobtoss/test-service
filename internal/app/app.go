@@ -41,7 +41,7 @@ func Run() {
 		cache.Dependencies{
 			UserRepository: repositories.User,
 		},
-		cache.WithRedisStore("redis://red-ck29ag021fec73d6mg0g:6379"))
+		cache.WithRedisStore("rediss://red-ck29ag021fec73d6mg0g:zR4txf2ueEzsUKjUuO77TOhHWP43TCCI@frankfurt-redis.render.com:6379"))
 	if err != nil {
 		logger.Error("ERR_INIT_CACHES", zap.Error(err))
 		return
