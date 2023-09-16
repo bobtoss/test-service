@@ -1,0 +1,157 @@
+definitions:
+  status.Object:
+    properties:
+      data: {}
+      message:
+        type: string
+      success:
+        type: boolean
+    type: object
+  user.Request:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      status:
+        type: string
+    type: object
+  user.Response:
+    properties:
+      email:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      status:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /users:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: query param
+        in: query
+        name: email
+        type: string
+      - description: query param
+        in: query
+        name: name
+        type: string
+      - description: query param
+        in: query
+        name: status
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/user.Response'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/status.Object'
+      summary: list of users from the repository
+      tags:
+      - users
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: body param
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/user.Request'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/status.Object'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/status.Object'
+      summary: add a new user to the repository
+      tags:
+      - users
+  /users/{id}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: path param
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/status.Object'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/status.Object'
+      summary: get the user from the repository
+      tags:
+      - users
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: path param
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: body param
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/user.Request'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/status.Object'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/status.Object'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/status.Object'
+      summary: update the user in the repository
+      tags:
+      - users
+swagger: "2.0"
